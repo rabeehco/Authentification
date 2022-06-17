@@ -6,11 +6,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codewithrabeeh/Authentification.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codewithrabeeh/Authentification/issues"
+  },
+  "homepage": "https://github.com/codewithrabeeh/Authentification#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "express": "^4.18.1"
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.8"
   }
 }
