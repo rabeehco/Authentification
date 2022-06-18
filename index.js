@@ -30,25 +30,18 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', async(req, res) => {
-    // res.send(req.body)
     const {password, username} = req.body
-    const hash = await bcrypt.hash(password, 12)
-    const user = new User({
-        username,
-        password: hash
-    })
+    const user = new User({username, password})
     await user.save()
     req.session.user_id = user._id
     res.redirect('/')
 })
 
 app.post('/login', async(req, res) => {
-    // res.send(req.body)
     const {username, password} = req.body
-    const user = await User.findOne({username: username})
-    const compare = await bcrypt.compare(password, user.password)
-    if(compare){
-        req.session.user_id = user._id
+    const foundUser = await User.findAndValidate(username, password)
+    if(foundUser){
+        req.session.user_id = foundUser._id
         res.redirect(`/secret`)
     } else {
         res.redirect(`/login`)
@@ -62,12 +55,7 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    // if(req.session.user_id === null){
         res.render('login')
-    // } else {
-        // res.redirect('/secret')
-    // }
-    
 })
 
 app.get('/secret', requireLogin, (req, res) => {
